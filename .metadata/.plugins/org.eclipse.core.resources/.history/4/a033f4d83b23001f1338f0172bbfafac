@@ -1,0 +1,5 @@
+spring.application.name=03-Config-Server
+
+server.port=2222
+
+spring.cloud.config.server.git.uri=true

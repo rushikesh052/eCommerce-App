@@ -1,0 +1,15 @@
+
+spring:
+  application:
+    name: Auth-Service
+    
+  config:
+    import: optional:configserver:http://localhost:2222
+    
+auth-service:
+  messages:
+    userReg: user created
+    userRegErr: User creation failed
+    login: Login Sucess
+    loginErr: Invalid Credentials
+    

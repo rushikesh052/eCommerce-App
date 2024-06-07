@@ -1,0 +1,4 @@
+spring.application.name=04-Auth-Service
+
+
+spring.boot.admin.client.url=http://localhost:1111/

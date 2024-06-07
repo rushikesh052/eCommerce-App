@@ -1,0 +1,21 @@
+package com.rushi.service;
+
+import java.util.Collections;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import com.rushi.entity.User;
+
+public class UserDetailService implements org.springframework.security.core.userdetails.UserDetailsService{
+
+	
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user=userRepo.findByEmail(email);
+		return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPwd(),Collections.EMPTY_LIST);
+		
+	}
+	
+
+}
