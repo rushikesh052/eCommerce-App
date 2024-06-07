@@ -34,7 +34,7 @@ public class UserRestController {
 	@Autowired
 	private AppProperties appProps;
 	
-	Map<String,String> messages=null;
+	
 
 	@PostMapping("/register")
 	public ResponseEntity<ApiResponse<User>> createUser(@RequestParam("user") String userJson,@RequestParam("file") MultipartFile file)throws Exception{
@@ -42,7 +42,7 @@ public class UserRestController {
 		log.info("User registration process started");
 		
 		ApiResponse<User> response=new ApiResponse<>();
-		appProps.getMessages();
+		Map<String,String> messages=appProps.getMessages();
 		
 		ObjectMapper mapper=new ObjectMapper();
 		User user = mapper.readValue(userJson,User.class);
@@ -67,6 +67,7 @@ public class UserRestController {
 		log.info("user login process started");
 		
 		ApiResponse<User> response=new ApiResponse<>();
+		Map<String,String> messages=appProps.getMessages();
 		
 		User login = userService.login(user);
 		if(login !=null) {
