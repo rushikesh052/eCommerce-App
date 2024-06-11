@@ -18,7 +18,7 @@ public interface IProductService {
 	
 	public ProductDTO deleteProductById(Integer ProductId);
 
-	public Boolean updateStock(Integer productId, Integer quantity);
+	public ProductDTO updateStock(Integer productId, Integer quantity);
 	
 	
 }

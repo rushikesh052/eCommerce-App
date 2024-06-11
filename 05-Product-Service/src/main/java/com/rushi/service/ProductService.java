@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.rushi.dto.ProductDTO;
+import com.rushi.entity.Category;
 import com.rushi.entity.Product;
 import com.rushi.mapper.ProductMapper;
+import com.rushi.repo.CategoryRepo;
 import com.rushi.repo.ProductRepo;
 import com.rushi.util.FileUtils;
 
@@ -18,14 +21,18 @@ public class ProductService implements IProductService {
 	
 	@Autowired
 	private ProductRepo productRepo;
+	
+	@Autowired
+	private CategoryRepo categoryRepo;
 
 	@Override
 	public ProductDTO addProduct(ProductDTO productDto, MultipartFile file)throws Exception {
 		Product product=ProductMapper.convertToEntity(productDto);
 		String fileName = FileUtils.saveFile(file.getName(), file);
-		productDto.setProductPic(fileName);
+		product.setProductPic(fileName);
 		Integer categoryId=productDto.getCategoryId();
-		productDto.setCategoryId(categoryId);
+		Category category=categoryRepo.findById(categoryId).orElseThrow();
+		product.setCategory(category);
 		Product savedProduct=productRepo.save(product);
 		return ProductMapper.convertToDto(savedProduct);
 	}
@@ -34,7 +41,7 @@ public class ProductService implements IProductService {
 	public ProductDTO updateProduct(Integer productId, MultipartFile file, ProductDTO productDto)throws Exception {
 		Product existProduct=productRepo.findById(productId).orElseThrow();
 		existProduct.setName(productDto.getName());
-		existProduct.setDesc(productDto.getDesc());
+		existProduct.setDescription(productDto.getDescription());
 		existProduct.setPrice(productDto.getPrice());
 		existProduct.setStock(productDto.getStock());
 		existProduct.setDiscount(productDto.getDiscount());
@@ -65,20 +72,17 @@ public class ProductService implements IProductService {
 	@Override
 	public ProductDTO deleteProductById(Integer ProductId) {
 		Product product=productRepo.findById(ProductId).orElseThrow();
-
-
 		ProductDTO productDto=ProductMapper.convertToDto(product);
 		productRepo.deleteById(ProductId);
 		return productDto;
 	}
 
 	@Override
-	public Boolean updateStock(Integer productId, Integer quantity) {
+	public ProductDTO updateStock(Integer productId, Integer quantity) {
 		Product product=productRepo.findById(productId).orElseThrow();
-		
+		ProductDTO productDto=ProductMapper.convertToDto(product);
 		product.setStock(quantity);
-		
 		productRepo.save(product);
-		return true;
+		return productDto;
 	}
 }

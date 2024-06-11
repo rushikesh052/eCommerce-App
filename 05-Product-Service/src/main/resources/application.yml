@@ -3,5 +3,8 @@ spring:
     name: Product-Service
   config:
     import: optional:configserver:http://localhost:2222
-    
+
+
+
+  
 
