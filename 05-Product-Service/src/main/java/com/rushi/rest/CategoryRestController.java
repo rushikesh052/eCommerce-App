@@ -41,12 +41,12 @@ public class CategoryRestController {
 			response.setStatus(201);
 			response.setMessage(messages.get(AppConstants.ADD_CATEGORY));
 			response.setData(addedCategory);
-			return new ResponseEntity<> (response,HttpStatus.CREATED);
+			
 		}else {
 			response.setStatus(501);
 			response.setMessage(messages.get(AppConstants.ADD_CATEGORY_ERR));
-			return new ResponseEntity<> (response,HttpStatus.CREATED);
 		}
+		return new ResponseEntity<> (response,HttpStatus.CREATED);
 		
 	}
 	
@@ -59,12 +59,12 @@ public class CategoryRestController {
 		if(updateCategory!=null) {
 			response.setStatus(201);
 			response.setMessage(messages.get(AppConstants.CATEGORY_UPDATE));
-			return new ResponseEntity<>(response,HttpStatus.OK);
+			
 		}else {
 			response.setStatus(501);
 			response.setMessage(messages.get(AppConstants.CATEGORY_UP_ERR));
-			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<>(response,HttpStatus.OK);
 		
 	}
 	
@@ -89,12 +89,11 @@ public class CategoryRestController {
     	response.setStatus(200);
     	response.setMessage(messages.get(AppConstants.CATEGORY_RETRIEVE));
     	response.setData(categoryDto);
-    	return new ResponseEntity<>(response,HttpStatus.OK);
     	}else {
     	response.setStatus(500);
     	response.setMessage(messages.get(AppConstants.CATEGORY_NOT_FOUND));
-    	return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
     	}
+    	return new ResponseEntity<>(response,HttpStatus.OK);
     }
     @DeleteMapping("/deletecategory/{id}")
     public ResponseEntity<ApiResponse<CategoryDTO>> deleteCategoryById(@PathVariable("id")Integer categoryId){
@@ -106,11 +105,11 @@ public class CategoryRestController {
     	response.setStatus(200);
     	response.setMessage(messages.get(AppConstants.CATEGORY_DELETE));
     	response.setData(categoryDto);
-    	return new ResponseEntity<>(response,HttpStatus.OK);
+    	
     	}else {
     		response.setStatus(500);
     		response.setMessage(messages.get(AppConstants.CATEGORY_NOT_FOUND_FOR_DELETE));
-    		return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
     	}
+    	return new ResponseEntity<>(response,HttpStatus.OK);
     }	
 }

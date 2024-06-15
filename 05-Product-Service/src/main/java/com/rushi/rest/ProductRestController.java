@@ -44,12 +44,11 @@ public class ProductRestController {
 			response.setStatus(201);
 			response.setMessage(message.get(AppConstants.ADD_PROD));
 			response.setData(addedProduct);
-			return new ResponseEntity<>(response,HttpStatus.CREATED); 
 		}else {
 			response.setStatus(501);
 			response.setMessage(message.get(AppConstants.ADD_PROD_ERROR));
-			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity<>(response,HttpStatus.CREATED); 
 		
 	}
 	
@@ -58,7 +57,7 @@ public class ProductRestController {
 			@PathVariable("productId") Integer productId, @RequestParam("data") String productJson,
 			@RequestParam("file") MultipartFile file )throws Exception{
 		ApiResponse<ProductDTO> response=new ApiResponse<>();
-		
+	
 		Map<String,String> message=appProp.getMessages();
 		ObjectMapper mapper=new ObjectMapper();
 		ProductDTO productDto=mapper.readValue(productJson, ProductDTO.class);
@@ -68,7 +67,6 @@ public class ProductRestController {
 			response.setStatus(200);
 			response.setMessage(message.get(AppConstants.UPDATE_PROD));
 			response.setData(updateProduct);
-			
 		}
 		else {
 			response.setStatus(500);
@@ -99,13 +97,13 @@ public class ProductRestController {
 		response.setStatus(200);
 		response.setMessage(messages.get(AppConstants.PRODUCT_RETRIEVE));
 		response.setData(productDto);
-		return new ResponseEntity<>(response,HttpStatus.OK);
+		
 		}
 		else {
 			response.setStatus(500);
 			response.setMessage(messages.get(AppConstants.PRODUCTNOTFOUND));
-			return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 	
@@ -119,13 +117,13 @@ public class ProductRestController {
 		response.setStatus(200);
 		response.setMessage(messages.get(AppConstants.DELETE_PRODUCT));
 		response.setData(deletedProduct);
-		return new ResponseEntity<>(response,HttpStatus.OK);
+		
 		}
 		else {
 			response.setStatus(500);
 			response.setMessage(messages.get(AppConstants.PRODUCT_NOT_FOUND_FOR_DELETE));
-			return new ResponseEntity<> (response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 	@PutMapping("product/{productId}/stock")
@@ -137,13 +135,13 @@ public class ProductRestController {
 			response.setStatus(200);
 			response.setMessage(messages.get(AppConstants.UPDATE_STOCK));
 			response.setData(updateStock);
-			return new ResponseEntity<>(response,HttpStatus.OK);
+			
 		}
 		else {
 		response.setStatus(500);
 		response.setMessage(messages.get(AppConstants.PRODUCT_NOT_FOUND));
-		return new ResponseEntity<> (response,HttpStatus.NOT_FOUND);
 		}
+		return new ResponseEntity<>(response,HttpStatus.OK);
 	}
 	
 }

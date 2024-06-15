@@ -40,16 +40,18 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public CartDto getCartByUserId(Integer userId) {
-		Cart cart=cartRepo.findById(userId).orElseThrow();
+		Cart cart=cartRepo.findByUserId(userId).orElseThrow();
 		CartDto cartDto=CartMapper.convertToDto(cart);
 		return cartDto;
 	}
 
 	@Override
-	public void deleteCartById(Integer cartId) {
+	public CartDto deleteCartById(Integer cartId) {
 		Cart cart=cartRepo.findById(cartId).orElseThrow();
 		CartDto cartDto=CartMapper.convertToDto(cart);
 		cartRepo.deleteById(cartId);
+		return cartDto;
+		 
 		
 		 
 

@@ -7,7 +7,14 @@ public class ProductServiceException extends RuntimeException{
 	public ProductServiceException(String msg, String  errorCode) {
 		super(msg);
 		this.errorCode=errorCode;
-		
-		
 	}
+
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
+	}
+	
 }

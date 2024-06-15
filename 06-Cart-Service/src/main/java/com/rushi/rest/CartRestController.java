@@ -64,7 +64,6 @@ public class CartRestController {
 	@GetMapping("cart/{id}")
 	public ResponseEntity<ApiResponse<CartDto>> getCartByUserId(@PathVariable("id")Integer userId){
 		CartDto getCart=cartService.getCartByUserId(userId);
-		
 		ApiResponse<CartDto> response=new ApiResponse<>();
 		Map<String,String> messages=appProp.getMessages();
 		
